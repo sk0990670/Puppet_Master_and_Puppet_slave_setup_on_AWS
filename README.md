@@ -162,10 +162,7 @@ Congratulations! Your Puppet Master and Puppet Agent are now set up and running.
 
 ![chef-vs-puppet-vs-ansible-what-are-the-differences-it-infographic](https://github.com/vishal815/Puppet_Master_and_Puppet_slave_setup_on_AWS/assets/83393190/f3cf14d2-e39e-49ad-b514-634a8b475099)
 
-Happy learning!
-
-
-### script and instructions for setting up a Puppet manifest on the Master node and applying it on the Slave node. Here's a cleaned-up version of your instructions:
+# script and instructions for setting up a Puppet manifest on the Master node and applying it on the Slave node. Here's a cleaned-up version of your instructions:
 
 ### Master Node:
 ## 1.Navigate to the Puppet directory:
@@ -212,12 +209,12 @@ node default {
 }
 ```
 ## 9.Add the following content to the new_site.pp file:
-# .Press Ctrl + X to exit.
-# .Press Y to confirm saving.
-# .Press Enter to save the file with the same name.
+### .Press Ctrl + X to exit.
+### .Press Y to confirm saving.
+### .Press Enter to save the file with the same name.
 
-### Slave Node:
-## 1.Apply the Puppet catalog:
+## Slave Node:
+### 1.Apply the Puppet catalog:
 ```
 sudo /opt/puppetlabs/bin/puppet agent --test
 ```
