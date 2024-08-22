@@ -164,3 +164,77 @@ Congratulations! Your Puppet Master and Puppet Agent are now set up and running.
 
 Happy learning!
 
+
+### script and instructions for setting up a Puppet manifest on the Master node and applying it on the Slave node. Here's a cleaned-up version of your instructions:
+
+### Master Node:
+## 1.Navigate to the Puppet directory:
+```
+cd /etc/puppetlabs
+```
+## 2.List the contents:
+```
+ls
+```
+## 3.Navigate to the code directory:
+```
+cd code
+```
+## 4.List the contents:
+```
+ls
+```
+## 5.Create the necessary directories:
+```
+sudo mkdir -p environments/production/manifests/
+```
+## 6.Create the necessary directories:
+```
+cd environments/production/manifests/
+```
+## 7.Create a new manifest file (`new_site.pp`):
+```
+sudo nano new_site.pp
+```
+## 8.Add the following content to the new_site.pp file:
+```
+node default {
+    # 1st resource: Install Nginx
+    package {'nginx':
+        ensure => installed,
+    }
+
+    # 2nd resource: Create a status file
+    file{ '/tmp/status.txt':
+        content => 'Nginx has been installed successfully',
+        mode    => '0644',
+    }
+}
+```
+## 9.Add the following content to the new_site.pp file:
+# .Press Ctrl + X to exit.
+# .Press Y to confirm saving.
+# .Press Enter to save the file with the same name.
+
+### Slave Node:
+## 1.Apply the Puppet catalog:
+```
+sudo /opt/puppetlabs/bin/puppet agent --test
+```
+## 2.Verify Nginx installation:
+# .Copy the public IP of the slave node.
+# .Open a web browser and paste the IP.
+# .Hit `Enter` to check if it shows the Nginx default page.
+## 3.Check the content of the status file:
+```
+cat /tmp/status.txt
+```
+# .On the slave node, run:
+```
+cat /tmp/status.txt
+```
+# .It should display: Nginx has been installed successfully.
+# This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
+
+
+
