@@ -222,19 +222,19 @@ node default {
 sudo /opt/puppetlabs/bin/puppet agent --test
 ```
 ## 2.Verify Nginx installation:
-# .Copy the public IP of the slave node.
-# .Open a web browser and paste the IP.
-# .Hit `Enter` to check if it shows the Nginx default page.
+### .Copy the public IP of the slave node.
+### .Open a web browser and paste the IP.
+### .Hit `Enter` to check if it shows the Nginx default page.
 ## 3.Check the content of the status file:
 ```
 cat /tmp/status.txt
 ```
-# .On the slave node, run:
+### .On the slave node, run:
 ```
 cat /tmp/status.txt
 ```
-# .It should display: Nginx has been installed successfully.
-# This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
+### .It should display: Nginx has been installed successfully.
+### This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
 
 
 
