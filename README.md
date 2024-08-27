@@ -233,5 +233,110 @@ cat /tmp/status.txt
 ### .It should display: Nginx has been installed successfully.
 ### This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
 
+an example of a simple Puppet module that manages the installation and configuration of the Apache web server on a Linux system.
+
+### On the Puppet Master Server
+
+1. **Create the Module Directory Structure**:
+   ```bash
+   sudo mkdir -p /etc/puppetlabs/code/environments/production/modules/apache_example/{manifests,templates}
+   ```
+
+2. **Create the `init.pp` Manifest**:
+   ```bash
+   sudo nano /etc/puppetlabs/code/environments/production/modules/apache_example/manifests/init.pp
+   ```
+
+   Add the following content:
+   ```puppet
+   class apache_example {
+     package { 'apache2':
+       ensure => 'installed',
+     }
+
+     service { 'apache2':
+       ensure    => 'running',
+       enable    => true,
+       require   => Package['apache2'],
+     }
+
+     file { '/var/www/html/index.html':
+       ensure  => 'file',
+       content => template('apache_example/index.html.erb'),
+       require => Package['apache2'],
+     }
+   }
+   ```
+
+3. **Create the `index.html.erb` Template**:
+   ```bash
+   sudo nano /etc/puppetlabs/code/environments/production/modules/apache_example/templates/index.html.erb
+   ```
+
+   Add the following content:
+   ```html
+   <html>
+   <head>
+     <title>Welcome to Apache on <%= @hostname %></title>
+   </head>
+   <body>
+     <h1>Hello from Puppet-managed Apache on <%= @hostname %>!</h1>
+   </body>
+   </html>
+   ```
+
+4. **Edit the Site Manifest (`site.pp`)**:
+   ```bash
+   sudo nano /etc/puppetlabs/code/environments/production/manifests/site.pp
+   ```
+
+   Add the following node definition:
+   ```puppet
+   node 'your_slave_node_fqdn' {
+     include apache_example
+   }
+   ```
+
+   Replace `your_slave_node_fqdn` with the actual FQDN of your Puppet Agent (Slave) node.
+
+### On the Puppet Agent (Slave) Server
+
+1. **Run Puppet Agent to Apply Configuration**:
+   After making changes on the Puppet Master, SSH into the Puppet Agent (Slave) node and run:
+
+   ```bash
+   sudo /opt/puppetlabs/bin/puppet agent --test
+   ```
+
+   This command will:
+   - Connect the agent to the Puppet Master.
+   - Fetch the catalog that includes the `apache_example` module.
+   - Apply the configuration, which includes installing Apache, starting the Apache service, and creating a custom `index.html` file.
+
+### Verification
+
+1. **Check the Apache Service**:
+   Ensure that Apache is running on the Puppet Agent node:
+
+   ```bash
+   sudo systemctl status apache2
+   ```
+
+2. **Verify the Web Page**:
+   Open a web browser and navigate to the IP address or domain of the Puppet Agent node (e.g., `http://<your_slave_node_ip>`). You should see the custom welcome page with the message "Hello from Puppet-managed Apache on [hostname]!".
+
+### Summary of Commands
+
+- **Master Server**:
+  - Create directories: `sudo mkdir -p /etc/puppetlabs/code/environments/production/modules/apache_example/{manifests,templates}`
+  - Create and edit `init.pp`: `sudo nano /etc/puppetlabs/code/environments/production/modules/apache_example/manifests/init.pp`
+  - Create and edit template: `sudo nano /etc/puppetlabs/code/environments/production/modules/apache_example/templates/index.html.erb`
+  - Edit `site.pp`: `sudo nano /etc/puppetlabs/code/environments/production/manifests/site.pp`
+
+- **Agent (Slave) Server**:
+  - Run Puppet agent: `sudo /opt/puppetlabs/bin/puppet agent --test`
+
+Let me know if you need any further assistance!
+
 
 
