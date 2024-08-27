@@ -233,19 +233,7 @@ cat /tmp/status.txt
 ### .It should display: Nginx has been installed successfully.
 ### This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
 
-
-
-
-
-
-
-
-
-
-
-
-
-an example of a simple Puppet module that manages the installation and configuration of the Apache web server on a Linux system.
+# an example of a simple Puppet module that manages the installation and configuration of the Apache web server on a Linux system.
 
 ### On the Puppet Master Server
 
