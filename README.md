@@ -193,7 +193,7 @@ cd environments/production/manifests/
 ```
 sudo nano site.pp
 ```
-## 8.Add the following content to the new_site.pp file:
+## 8.Add the following content to the site.pp file:
 ```
 node default {
     # 1st resource: Install Nginx
@@ -208,7 +208,7 @@ node default {
     }
 }
 ```
-## 9.Add the following content to the new_site.pp file:
+## 9.Add the following content to the site.pp file:
 ### .Press Ctrl + X to exit.
 ### .Press Y to confirm saving.
 ### .Press Enter to save the file with the same name.
