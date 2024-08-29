@@ -189,9 +189,9 @@ sudo mkdir -p environments/production/manifests/
 ```
 cd environments/production/manifests/
 ```
-## 7.Create a new manifest file (`new_site.pp`):
+## 7.Create a new manifest file (`site.pp`):
 ```
-sudo nano new_site.pp
+sudo nano site.pp
 ```
 ## 8.Add the following content to the new_site.pp file:
 ```
