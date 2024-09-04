@@ -162,76 +162,85 @@ Congratulations! Your Puppet Master and Puppet Agent are now set up and running.
 
 ![chef-vs-puppet-vs-ansible-what-are-the-differences-it-infographic](https://github.com/vishal815/Puppet_Master_and_Puppet_slave_setup_on_AWS/assets/83393190/f3cf14d2-e39e-49ad-b514-634a8b475099)
 
-# script and instructions for setting up a Puppet manifest on the Master node and applying it on the Slave node. Here's a cleaned-up version of your instructions:
+script and instructions for setting up a Puppet manifest on the Master node and applying it on the Slave node. Here's a cleaned-up version of your instructions:
 
 ### Master Node:
-## 1.Navigate to the Puppet directory:
-```
-cd /etc/puppetlabs
-```
-## 2.List the contents:
-```
-ls
-```
-## 3.Navigate to the code directory:
-```
-cd code
-```
-## 4.List the contents:
-```
-ls
-```
-## 5.Create the necessary directories:
-```
-sudo mkdir -p environments/production/manifests/
-```
-## 6.Create the necessary directories:
-```
-cd environments/production/manifests/
-```
-## 7.Create a new manifest file (`site.pp`):
-```
-sudo nano site.pp
-```
-## 8.Add the following content to the site.pp file:
-```
-node default {
-    # 1st resource: Install Nginx
-    package {'nginx':
-        ensure => installed,
-    }
 
-    # 2nd resource: Create a status file
-    file{ '/tmp/status.txt':
-        content => 'Nginx has been installed successfully',
-        mode    => '0644',
-    }
-}
-```
-## 9.Add the following content to the site.pp file:
-### .Press Ctrl + X to exit.
-### .Press Y to confirm saving.
-### .Press Enter to save the file with the same name.
+1. **Navigate to the Puppet directory:**
+   ```bash
+   cd /etc/puppetlabs
+   ```
 
-## Slave Node:
-### 1.Apply the Puppet catalog:
-```
-sudo /opt/puppetlabs/bin/puppet agent --test
-```
-## 2.Verify Nginx installation:
-### .Copy the public IP of the slave node.
-### .Open a web browser and paste the IP.
-### .Hit `Enter` to check if it shows the Nginx default page.
-## 3.Check the content of the status file:
-```
-cat /tmp/status.txt
-```
-### .On the slave node, run:
-```
-cat /tmp/status.txt
-```
-### .It should display: Nginx has been installed successfully.
-### This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
+2. **List the contents:**
+   ```bash
+   ls
+   ```
+
+3. **Navigate to the code directory:**
+   ```bash
+   cd code
+   ```
+
+4. **List the contents:**
+   ```bash
+   ls
+   ```
+
+5. **Create the necessary directories:**
+   ```bash
+   sudo mkdir -p environments/production/manifests/
+   ```
+
+6. **Navigate to the manifests directory:**
+   ```bash
+   cd environments/production/manifests/
+   ```
+
+7. **Create a new manifest file (`site.pp`):**
+   ```bash
+   sudo nano site.pp
+   ```
+
+8. **Add the following content to the `site.pp` file:**
+   ```puppet
+   node default {
+       # 1st resource: Install Nginx
+       package { 'nginx':
+           ensure => installed,
+       }
+
+       # 2nd resource: Create a status file
+       file { '/tmp/status.txt':
+           content => 'Nginx has been installed successfully',
+           mode    => '0644',
+       }
+   }
+   ```
+
+9. **Save and exit the editor:**
+   - Press `Ctrl + X` to exit.
+   - Press `Y` to confirm saving.
+   - Press `Enter` to save the file with the same name.
+
+### Slave Node:
+
+1. **Apply the Puppet catalog:**
+   ```bash
+   sudo /opt/puppetlabs/bin/puppet agent --test
+   ```
+
+2. **Verify Nginx installation:**
+   - Copy the public IP of the slave node.
+   - Open a web browser and paste the IP.
+   - Hit `Enter` to check if it shows the Nginx default page.
+
+3. **Check the content of the status file:**
+   ```bash
+   cat /tmp/status.txt
+   ```
+   - It should display: `Nginx has been installed successfully`.
+
+This should guide you through setting up your Puppet manifest and verifying its application on the slave node.
 
 # an example of a simple Puppet module that manages the installation and configuration of the Apache web server on a Linux system.
 
@@ -325,18 +334,7 @@ cat /tmp/status.txt
 2. **Verify the Web Page**:
    Open a web browser and navigate to the IP address or domain of the Puppet Agent node (e.g., `http://<your_slave_node_ip>`). You should see the custom welcome page with the message "Hello from Puppet-managed Apache on [hostname]!".
 
-### Summary of Commands
 
-- **Master Server**:
-  - Create directories: `sudo mkdir -p /etc/puppetlabs/code/environments/production/modules/apache_example/{manifests,templates}`
-  - Create and edit `init.pp`: `sudo nano /etc/puppetlabs/code/environments/production/modules/apache_example/manifests/init.pp`
-  - Create and edit template: `sudo nano /etc/puppetlabs/code/environments/production/modules/apache_example/templates/index.html.erb`
-  - Edit `site.pp`: `sudo nano /etc/puppetlabs/code/environments/production/manifests/site.pp`
-
-- **Agent (Slave) Server**:
-  - Run Puppet agent: `sudo /opt/puppetlabs/bin/puppet agent --test`
-
-Let me know if you need any further assistance!
 
 
 
